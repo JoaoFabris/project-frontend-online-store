@@ -2,8 +2,31 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class Home extends React.Component {
+  validProductsByTerms = (products) => {
+    if (products === undefined) {
+      return (
+        <h3
+          data-testid="home-initial-message"
+        >
+          Digite algum termo de pesquisa ou escolha uma categoria.
+        </h3>);
+    }
+    if (products.length === 0) {
+      console.log('entrei');
+      return (
+        <h3>Nenhum produto foi encontrado</h3>
+      );
+    }
+  }
+
   render() {
-    const { products, searchInput, onInputChange } = this.props;
+    const {
+      productsByTerms,
+      searchInput,
+      onInputChange,
+      onClick,
+      loading,
+    } = this.props;
     return (
       <div>
         <div>
@@ -14,17 +37,40 @@ class Home extends React.Component {
               id="search-input"
               type="text"
               onChange={ onInputChange }
+              data-testid="query-input"
             />
           </label>
+          <button
+            type="button"
+            data-testid="query-button"
+            onClick={ () => onClick() }
+          >
+            Pesquisar
+          </button>
+          {loading && <h4>Carregando...</h4>}
         </div>
         <div>
-          {products.length === 0 ? (
-            <h3 data-testid="home-initial-message">
-              Digite algum termo de pesquisa ou escolha uma categoria.
-            </h3>
-          ) : (
-            <h3>OIII</h3>
-          )}
+          {this.validProductsByTerms(productsByTerms)
+            ? this.validProductsByTerms(productsByTerms)
+            : (
+              productsByTerms.map((product) => (
+                <div
+                  key={ product.id }
+                  data-testid="product"
+                >
+                  <div>
+                    <h3>{product.title}</h3>
+                    <img
+                      src={ product.thumbnail }
+                      alt={ product.title }
+                    />
+                  </div>
+                  <div>
+                    <h6>{`R$ ${product.price}`}</h6>
+                  </div>
+                </div>
+              ))
+            )}
         </div>
       </div>
     );

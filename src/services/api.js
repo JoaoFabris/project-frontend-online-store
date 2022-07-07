@@ -13,5 +13,5 @@ export async function getProductsFromCategoryAndQuery(categoryId, query) {
   const request = await fetch(END_POINT_ID_QUERY);
   const result = await request.json();
 
-  return result;
+  return result.results;
 }

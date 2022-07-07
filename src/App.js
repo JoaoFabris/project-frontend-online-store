@@ -1,13 +1,16 @@
 import React from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import Home from './pages/Home';
+import { getProductsFromCategoryAndQuery } from './services/api';
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      products: [],
       searchInput: '',
+      categoryId: '',
+      productsByTerms: undefined,
+      loading: false,
     };
   }
 
@@ -18,8 +21,28 @@ class App extends React.Component {
     });
   };
 
+  fetchListProducts = async () => {
+    const { searchInput, categoryId } = this.state;
+
+    this.setState({
+      loading: true,
+    },
+    async () => {
+      const products = await getProductsFromCategoryAndQuery(categoryId, searchInput);
+      console.log({ products });
+      this.setState({
+        loading: false,
+        productsByTerms: products,
+      });
+    });
+  };
+
   render() {
-    const { products, searchInput } = this.state;
+    const {
+      searchInput,
+      productsByTerms,
+      loading,
+    } = this.state;
 
     return (
       <div>
@@ -31,7 +54,9 @@ class App extends React.Component {
                 <Home
                   onInputChange={ this.onInputChange }
                   searchInput={ searchInput }
-                  products={ products }
+                  onClick={ this.fetchListProducts }
+                  productsByTerms={ productsByTerms }
+                  loading={ loading }
                 />
               ) }
             />
