@@ -1,14 +1,27 @@
 import React from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import Home from './pages/Home';
+import { getCategories } from './services/api';
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
       products: [],
+      categories: [],
       searchInput: '',
     };
+  }
+
+  componentDidMount() {
+    this.showCategories();
+  }
+
+  showCategories = async () => {
+    const arrayCategories = await getCategories();
+    this.setState({
+      categories: arrayCategories,
+    });
   }
 
   onInputChange = ({ target }) => {
@@ -19,7 +32,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { products, searchInput } = this.state;
+    const { products, searchInput, categories } = this.state;
 
     return (
       <div>
@@ -32,6 +45,7 @@ class App extends React.Component {
                   onInputChange={ this.onInputChange }
                   searchInput={ searchInput }
                   products={ products }
+                  categories={ categories }
                 />
               ) }
             />
