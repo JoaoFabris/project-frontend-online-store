@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import Home from './pages/Home';
+import { getCategories } from './services/api';
 
 class App extends React.Component {
   constructor() {
@@ -12,15 +13,15 @@ class App extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.showCategories();
+  }
+
   showCategories = async () => {
     const arrayCategories = await getCategories();
     this.setState({
       categories: arrayCategories,
     });
-  }
-
-  componentDidMount(){
-    this.showCategories();
   }
 
   onInputChange = ({ target }) => {

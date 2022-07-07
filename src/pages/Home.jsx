@@ -7,19 +7,19 @@ class Home extends React.Component {
     return (
       <div>
         <div>
-          {categories.map((categorie) => {
-            <label 
-              data-testid="category" 
-              htmlFor={categorie.id} 
-              key={categorie.id}
+          {categories.map((category) => (
+            <label
+              data-testid="category"
+              htmlFor={ category.id }
+              key={ category.id }
             >
-              <input 
+              <input
                 type="radio"
-                id={ categorie.id } 
+                id={ category.id }
+                name="category"
               />
-              <p>{ categorie.name }</p>
-            </label>
-          })}
+              <p>{ category.name }</p>
+            </label>))}
         </div>
         <div>
           <label htmlFor="search-input">
