@@ -58,7 +58,6 @@ class App extends React.Component {
       categories,
     } = this.state;
 
-
     return (
       <div>
         <BrowserRouter>
@@ -69,7 +68,6 @@ class App extends React.Component {
                 <Home
                   onInputChange={ this.onInputChange }
                   searchInput={ searchInput }
-
                   onClick={ this.fetchListProducts }
                   productsByTerms={ productsByTerms }
                   loading={ loading }
