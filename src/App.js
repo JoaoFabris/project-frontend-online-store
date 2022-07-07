@@ -1,17 +1,30 @@
 import React from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import Home from './pages/Home';
-import { getProductsFromCategoryAndQuery } from './services/api';
+
+import { getCategories, getProductsFromCategoryAndQuery } from './services/api';
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
+      categories: [],
       searchInput: '',
       categoryId: '',
       productsByTerms: undefined,
       loading: false,
     };
+  }
+
+  componentDidMount() {
+    this.showCategories();
+  }
+
+  showCategories = async () => {
+    const arrayCategories = await getCategories();
+    this.setState({
+      categories: arrayCategories,
+    });
   }
 
   onInputChange = ({ target }) => {
@@ -42,7 +55,9 @@ class App extends React.Component {
       searchInput,
       productsByTerms,
       loading,
+      categories,
     } = this.state;
+
 
     return (
       <div>
@@ -54,9 +69,12 @@ class App extends React.Component {
                 <Home
                   onInputChange={ this.onInputChange }
                   searchInput={ searchInput }
+
                   onClick={ this.fetchListProducts }
                   productsByTerms={ productsByTerms }
                   loading={ loading }
+                  categories={ categories }
+
                 />
               ) }
             />

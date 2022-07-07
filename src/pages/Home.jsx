@@ -26,9 +26,26 @@ class Home extends React.Component {
       onInputChange,
       onClick,
       loading,
+      categories,
     } = this.props;
+
     return (
       <div>
+        <div>
+          {categories.map((category) => (
+            <label
+              data-testid="category"
+              htmlFor={ category.id }
+              key={ category.id }
+            >
+              <input
+                type="radio"
+                id={ category.id }
+                name="category"
+              />
+              <p>{ category.name }</p>
+            </label>))}
+        </div>
         <div>
           <label htmlFor="search-input">
             <input
