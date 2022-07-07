@@ -3,9 +3,24 @@ import PropTypes from 'prop-types';
 
 class Home extends React.Component {
   render() {
-    const { products, searchInput, onInputChange } = this.props;
+    const { products, searchInput, onInputChange, categories } = this.props;
     return (
       <div>
+        <div>
+          {categories.map((categorie) => {
+            <label 
+              data-testid="category" 
+              htmlFor={categorie.id} 
+              key={categorie.id}
+            >
+              <input 
+                type="radio"
+                id={ categorie.id } 
+              />
+              <p>{ categorie.name }</p>
+            </label>
+          })}
+        </div>
         <div>
           <label htmlFor="search-input">
             <input

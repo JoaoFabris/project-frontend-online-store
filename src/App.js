@@ -7,8 +7,20 @@ class App extends React.Component {
     super();
     this.state = {
       products: [],
+      categories: [],
       searchInput: '',
     };
+  }
+
+  showCategories = async () => {
+    const arrayCategories = await getCategories();
+    this.setState({
+      categories: arrayCategories,
+    });
+  }
+
+  componentDidMount(){
+    this.showCategories();
   }
 
   onInputChange = ({ target }) => {
@@ -19,7 +31,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { products, searchInput } = this.state;
+    const { products, searchInput, categories } = this.state;
 
     return (
       <div>
@@ -32,6 +44,7 @@ class App extends React.Component {
                   onInputChange={ this.onInputChange }
                   searchInput={ searchInput }
                   products={ products }
+                  categories={ categories }
                 />
               ) }
             />
