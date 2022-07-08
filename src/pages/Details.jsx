@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class Details extends React.Component {
   render() {
-    const { productItens, loading } = this.props;
-    console.log(loading);
+    const { productItens, loading, addProductsCart } = this.props;
     return (
       <div>
         {loading ? <h1>Carregando...</h1> : (
@@ -34,6 +34,21 @@ class Details extends React.Component {
                 ))}
               </div>
             </div>
+            <button
+              type="button"
+              onClick={ () => addProductsCart(productItens) }
+              data-testid="product-detail-add-to-cart"
+            >
+              Adicionar ao carrinho
+            </button>
+            <button type="button">
+              <Link
+                to="/shoppingCart"
+                data-testid="shopping-cart-button"
+              >
+                Carrinho
+              </Link>
+            </button>
           </div>
         )}
       </div>

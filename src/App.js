@@ -61,7 +61,6 @@ class App extends React.Component {
     },
     async () => {
       const products = await getProduct(productId);
-      console.log(products);
       this.setState({
         loading: false,
         productItens: products,
@@ -109,6 +108,7 @@ class App extends React.Component {
               render={ () => (<Details
                 productItens={ productItens }
                 loading={ loading }
+                addProductsCart={ this.addProductsCart }
               />) }
             />
             <Route
