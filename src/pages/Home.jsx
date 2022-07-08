@@ -27,6 +27,7 @@ class Home extends React.Component {
       onClick,
       loading,
       categories,
+      onCategoryClick,
     } = this.props;
 
     return (
@@ -42,6 +43,7 @@ class Home extends React.Component {
                 type="radio"
                 id={ category.id }
                 name="category"
+                onClick={ onCategoryClick }
               />
               <p>{ category.name }</p>
             </label>))}
