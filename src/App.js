@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import Home from './pages/Home';
+import ShoppingCart from './pages/ShoppingCart';
 
 import { getCategories, getProductsFromCategoryAndQuery } from './services/api';
 
@@ -10,7 +11,8 @@ class App extends React.Component {
     this.state = {
       categories: [],
       searchInput: '',
-      categoryId: undefined,
+      categoryId: '',
+      purchases: [],
       productsByTerms: undefined,
       loading: false,
     };
@@ -62,6 +64,7 @@ class App extends React.Component {
       productsByTerms,
       loading,
       categories,
+      purchases,
     } = this.state;
 
     return (
@@ -82,6 +85,10 @@ class App extends React.Component {
 
                 />
               ) }
+            />
+            <Route
+              path="/shoppingCart"
+              render={ () => <ShoppingCart purchases={ purchases } /> }
             />
           </Switch>
         </BrowserRouter>
