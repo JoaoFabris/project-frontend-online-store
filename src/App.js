@@ -42,10 +42,10 @@ class App extends React.Component {
     },
     async () => {
       const products = await getProductsFromCategoryAndQuery(categoryId, searchInput);
-      console.log({ products });
+      console.log(products);
       this.setState({
         loading: false,
-        productsByTerms: products,
+        productsByTerms: products.results,
       });
     });
   };
