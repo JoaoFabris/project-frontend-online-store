@@ -14,7 +14,6 @@ class Home extends React.Component {
         </h3>);
     }
     if (products.length === 0) {
-      console.log('entrei');
       return (
         <h3>Nenhum produto foi encontrado</h3>
       );
@@ -72,7 +71,7 @@ class Home extends React.Component {
           <button type="button">
             <Link
               to="/shoppingCart"
-              data-testid="shipping-cart-button"
+              data-testid="shopping-cart-button"
             >
               Carrinho
             </Link>

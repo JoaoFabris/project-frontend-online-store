@@ -72,6 +72,11 @@ class App extends React.Component {
         <BrowserRouter>
           <Switch>
             <Route
+              path="/shoppingCart"
+              render={ () => <ShoppingCart purchases={ purchases } /> }
+            />
+            <Route
+              exact
               path="/"
               render={ () => (
                 <Home
@@ -85,10 +90,6 @@ class App extends React.Component {
 
                 />
               ) }
-            />
-            <Route
-              path="/shoppingCart"
-              render={ () => <ShoppingCart purchases={ purchases } /> }
             />
           </Switch>
         </BrowserRouter>
