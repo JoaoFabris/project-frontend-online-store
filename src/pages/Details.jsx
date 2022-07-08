@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 class Details extends React.Component {
   render() {
     const { productItens, loading } = this.props;
+    console.log(loading);
     return (
       <div>
         {loading ? <h1>Carregando...</h1> : (

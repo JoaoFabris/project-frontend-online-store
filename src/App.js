@@ -131,6 +131,7 @@ class App extends React.Component {
                   loading={ loading }
                   categories={ categories }
                   addProductsCart={ this.addProductsCart }
+                  onProductClick={ this.onProductClick }
                 />
               ) }
             />
