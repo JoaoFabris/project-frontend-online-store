@@ -22,7 +22,15 @@ export async function getProductsFromCategoryAndQuery(categoryId, query) {
   if (categoryId && query) {
     request = await fetch(`${END_POINT_SEARCH}${categoryIdParam}&${queryParam}`);
   }
-  console.log(request);
+  const result = await request.json();
+
+  return result;
+}
+
+export async function getProduct(productID) {
+  const END_POINT_CATEGORY = 'https://api.mercadolibre.com/items/';
+
+  const request = await fetch(`${END_POINT_CATEGORY}${productID}`);
   const result = await request.json();
 
   return result;
