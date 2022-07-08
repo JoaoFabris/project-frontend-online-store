@@ -10,7 +10,7 @@ class App extends React.Component {
     this.state = {
       categories: [],
       searchInput: '',
-      categoryId: '',
+      categoryId: undefined,
       productsByTerms: undefined,
       loading: false,
     };
@@ -34,6 +34,13 @@ class App extends React.Component {
     });
   };
 
+  onCategoryClick = ({ target }) => {
+    const { id } = target;
+    this.setState({
+      categoryId: id,
+    }, async () => this.fetchListProducts());
+  }
+
   fetchListProducts = async () => {
     const { searchInput, categoryId } = this.state;
 
@@ -42,7 +49,6 @@ class App extends React.Component {
     },
     async () => {
       const products = await getProductsFromCategoryAndQuery(categoryId, searchInput);
-      console.log(products);
       this.setState({
         loading: false,
         productsByTerms: products.results,
@@ -69,6 +75,7 @@ class App extends React.Component {
                   onInputChange={ this.onInputChange }
                   searchInput={ searchInput }
                   onClick={ this.fetchListProducts }
+                  onCategoryClick={ this.onCategoryClick }
                   productsByTerms={ productsByTerms }
                   loading={ loading }
                   categories={ categories }
