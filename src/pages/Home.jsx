@@ -1,3 +1,4 @@
+import './Home.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -33,12 +34,13 @@ class Home extends React.Component {
 
     return (
       <div>
-        <div>
+        <div className="category">
           {categories.map((category) => (
             <label
               data-testid="category"
               htmlFor={ category.id }
               key={ category.id }
+              className="category-label"
             >
               <input
                 type="radio"
@@ -77,7 +79,7 @@ class Home extends React.Component {
           </button>
           {loading && <h4>Carregando...</h4>}
         </div>
-        <div>
+        <div className="search">
           {this.validProductsByTerms(productsByTerms)
             ? this.validProductsByTerms(productsByTerms)
             : (
@@ -109,6 +111,7 @@ Home.propTypes = {
   products: PropTypes.array,
   searchInput: PropTypes.string,
   onInputChange: PropTypes.func,
+  onCategoryClick: PropTypes.func,
 
 }.isRequired;
 
