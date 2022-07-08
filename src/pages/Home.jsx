@@ -85,6 +85,7 @@ class Home extends React.Component {
             : (
               productsByTerms.map((product) => (
                 <div
+                  className="products"
                   key={ product.id }
                   data-testid="product"
                 >
@@ -105,6 +106,22 @@ class Home extends React.Component {
                   >
                     Adicionar ao carrinho
                   </button>
+                  <Link
+                    to="/detailsProduct"
+                    data-testid="product-detail-link"
+                    onClick={ () => onProductClick(product.id) }
+                  >
+                    <div>
+                      <h3>{product.title}</h3>
+                      <img
+                        src={ product.thumbnail }
+                        alt={ product.title }
+                      />
+                    </div>
+                    <div>
+                      <h6>{`R$ ${product.price}`}</h6>
+                    </div>
+                  </Link>
                 </div>
               ))
             )}

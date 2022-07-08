@@ -1,9 +1,11 @@
 import React from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import Details from './pages/Details';
 import Home from './pages/Home';
 import ShoppingCart from './pages/ShoppingCart';
-
-import { getCategories, getProductsFromCategoryAndQuery } from './services/api';
+import { getCategories,
+  getProductsFromCategoryAndQuery,
+  getProduct } from './services/api';
 
 class App extends React.Component {
   constructor() {
@@ -12,6 +14,9 @@ class App extends React.Component {
       cartProducts: [],
       categories: [],
       categoryId: '',
+      productId: '',
+      productItens: [],
+      productsByTerms: undefined,
       loading: false,
       productsByTerms: undefined,
       searchInput: '',
@@ -43,6 +48,28 @@ class App extends React.Component {
     }, async () => this.fetchListProducts());
   }
 
+  onProductClick = (id) => {
+    this.setState({
+      productId: id,
+      loading: true,
+    }, async () => this.fetchProductsDetail());
+  }
+
+  fetchProductsDetail = async () => {
+    const { productId } = this.state;
+    this.setState({
+      loading: true,
+    },
+    async () => {
+      const products = await getProduct(productId);
+      console.log(products);
+      this.setState({
+        loading: false,
+        productItens: products,
+      });
+    });
+  };
+
   fetchListProducts = async () => {
     const { searchInput, categoryId } = this.state;
 
@@ -71,12 +98,20 @@ class App extends React.Component {
       loading,
       productsByTerms,
       searchInput,
+      productItens,
     } = this.state;
 
     return (
       <div>
         <BrowserRouter>
           <Switch>
+            <Route
+              path="/detailsProduct"
+              render={ () => (<Details
+                productItens={ productItens }
+                loading={ loading }
+              />) }
+            />
             <Route
               path="/shoppingCart"
               render={ () => (
