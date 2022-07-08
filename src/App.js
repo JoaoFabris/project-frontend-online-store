@@ -9,12 +9,12 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
+      cartProducts: [],
       categories: [],
-      searchInput: '',
       categoryId: '',
-      purchases: [],
-      productsByTerms: undefined,
       loading: false,
+      productsByTerms: undefined,
+      searchInput: '',
     };
   }
 
@@ -58,13 +58,19 @@ class App extends React.Component {
     });
   };
 
+  addProductsCart = (product) => {
+    this.setState((prevState) => ({
+      cartProducts: [...prevState.cartProducts, product],
+    }));
+  }
+
   render() {
     const {
-      searchInput,
-      productsByTerms,
-      loading,
       categories,
-      purchases,
+      cartProducts,
+      loading,
+      productsByTerms,
+      searchInput,
     } = this.state;
 
     return (
@@ -73,7 +79,10 @@ class App extends React.Component {
           <Switch>
             <Route
               path="/shoppingCart"
-              render={ () => <ShoppingCart purchases={ purchases } /> }
+              render={ () => (
+                <ShoppingCart
+                  cartProducts={ cartProducts }
+                />) }
             />
             <Route
               exact
@@ -87,7 +96,7 @@ class App extends React.Component {
                   productsByTerms={ productsByTerms }
                   loading={ loading }
                   categories={ categories }
-
+                  addProductsCart={ this.addProductsCart }
                 />
               ) }
             />

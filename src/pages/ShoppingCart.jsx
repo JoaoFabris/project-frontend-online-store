@@ -1,19 +1,58 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class ShoppingCart extends React.Component {
   render() {
-    const { purchases } = this.props;
+    const {
+      cartProducts,
+    } = this.props;
     return (
       <div>
-        {purchases.length === 0
+        { cartProducts.length === 0
           ? (
-            <h3 data-testid="shopping-cart-empty-message">
-              Seu carrinho está vazio
-            </h3>
+            <div>
+              <h3 data-testid="shopping-cart-empty-message">
+                Seu carrinho está vazio
+              </h3>
+              <Link
+                to="/"
+              >
+                Início
+              </Link>
+            </div>
           )
 
-          : <h2>Tá cheio</h2>}
+          : (
+            <div>
+              <h2
+                data-testid="shopping-cart-product-quantity"
+              >
+                {`Quantidade de itens ${cartProducts.length}`}
+              </h2>
+              {cartProducts.map((product) => (
+                <div
+                  key={ product.id }
+                  data-testid="product"
+                >
+                  <div>
+                    <h3
+                      data-testid="shopping-cart-product-name"
+                    >
+                      {product.title}
+                    </h3>
+                    <img
+                      src={ product.thumbnail }
+                      alt={ product.title }
+                    />
+                  </div>
+                  <div>
+                    <h5>{`R$ ${product.price}`}</h5>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
       </div>
     );
   }
