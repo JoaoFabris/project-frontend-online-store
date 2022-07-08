@@ -29,7 +29,7 @@ class Home extends React.Component {
       loading,
       categories,
       onCategoryClick,
-      onProductClick,
+      addProductsCart,
     } = this.props;
 
     return (
@@ -89,6 +89,23 @@ class Home extends React.Component {
                   key={ product.id }
                   data-testid="product"
                 >
+                  <div>
+                    <h3>{product.title}</h3>
+                    <img
+                      src={ product.thumbnail }
+                      alt={ product.title }
+                    />
+                  </div>
+                  <div>
+                    <h6>{`R$ ${product.price}`}</h6>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={ () => addProductsCart(product) }
+                    data-testid="product-add-to-cart"
+                  >
+                    Adicionar ao carrinho
+                  </button>
                   <Link
                     to="/detailsProduct"
                     data-testid="product-detail-link"
