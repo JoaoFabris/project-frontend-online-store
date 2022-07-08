@@ -18,7 +18,6 @@ class App extends React.Component {
       productItens: [],
       productsByTerms: undefined,
       loading: false,
-      productsByTerms: undefined,
       searchInput: '',
     };
   }
