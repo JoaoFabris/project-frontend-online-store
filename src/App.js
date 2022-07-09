@@ -19,7 +19,6 @@ class App extends React.Component {
       productsByTerms: undefined,
       loading: false,
       searchInput: '',
-      totalCartPrice: 0,
     };
   }
 
@@ -84,53 +83,10 @@ class App extends React.Component {
     });
   };
 
-  addProductsCart = (e, product) => {
-    e.preventDefault();
-    this.setState((prevState) => {
-      const productExistsInState = prevState.cartProducts
-        .find((cartProduct) => cartProduct.id === product.id);
-
-      if (productExistsInState) {
-        const newItems = this.updateQuantityCartItem(product, 1);
-        return { cartProducts: newItems };
-      }
-      product.cartQuantity = 1;
-      return { cartProducts: [...prevState.cartProducts, product] };
-    }, () => this.updateTotalCartPrice());
-  }
-
-  updateQuantityCartItem = (product, incrementor, setState = false, cb) => {
-    const { cartProducts } = this.state;
-
-    const newCartProducts = cartProducts.map((cartProduct) => {
-      if (cartProduct.id === product.id) {
-        const quantityAfterIncrementor = cartProduct.cartQuantity + incrementor;
-
-        if (quantityAfterIncrementor === 0) {
-          return { ...cartProduct };
-        }
-        return { ...cartProduct, cartQuantity: cartProduct.cartQuantity + incrementor };
-      }
-      return cartProduct;
-    });
-    return setState
-      ? this.setState({ cartProducts: newCartProducts }, () => cb()) : newCartProducts;
-  }
-
-  onCartQuantityClickHandler = ({ target }, product) => {
-    const incr = 1;
-    const decr = -1;
-    const incrementor = target.className === 'plus' ? incr : decr;
-    this.updateQuantityCartItem(product, incrementor, true, this.updateTotalCartPrice);
-  }
-
-  updateTotalCartPrice = () => {
-    const { cartProducts } = this.state;
-    this.setState(() => {
-      const total = cartProducts
-        .reduce((acc, curr) => acc + (curr.cartQuantity * curr.price), 0);
-      return { totalCartPrice: total };
-    });
+  addProductsCart = (product) => {
+    this.setState((prevState) => ({
+      cartProducts: [...prevState.cartProducts, product],
+    }));
   }
 
   render() {
@@ -141,7 +97,6 @@ class App extends React.Component {
       productsByTerms,
       searchInput,
       productItens,
-      totalCartPrice,
     } = this.state;
 
     return (
@@ -161,8 +116,6 @@ class App extends React.Component {
               render={ () => (
                 <ShoppingCart
                   cartProducts={ cartProducts }
-                  onCartQuantityClickHandler={ this.onCartQuantityClickHandler }
-                  totalPrice={ totalCartPrice }
                 />) }
             />
             <Route

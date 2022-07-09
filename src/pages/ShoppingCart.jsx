@@ -6,8 +6,6 @@ class ShoppingCart extends React.Component {
   render() {
     const {
       cartProducts,
-      onCartQuantityClickHandler,
-      totalPrice,
     } = this.props;
     return (
       <div>
@@ -27,9 +25,14 @@ class ShoppingCart extends React.Component {
 
           : (
             <div>
-              {cartProducts.map((product, index) => (
+              <h2
+                data-testid="shopping-cart-product-quantity"
+              >
+                {`Quantidade de itens ${cartProducts.length}`}
+              </h2>
+              {cartProducts.map((product) => (
                 <div
-                  key={ index }
+                  key={ product.id }
                   data-testid="product"
                 >
                   <div>
@@ -46,31 +49,8 @@ class ShoppingCart extends React.Component {
                   <div>
                     <h5>{`R$ ${product.price}`}</h5>
                   </div>
-                  <div className="quantity" style={ { display: 'flex', height: '2em', alignItems: 'center' } }>
-                    <button
-                      onClick={ (e) => onCartQuantityClickHandler(e, product) }
-                      type="button"
-                      className="minus"
-                      data-testid="product-decrease-quantity"
-                    >
-                      -
-                    </button>
-                    <h5 data-testid="shopping-cart-product-quantity">{product.cartQuantity}</h5>
-                    <button
-                      onClick={ (e) => onCartQuantityClickHandler(e, product) }
-                      type="button"
-                      className="plus"
-                      data-testid="product-increase-quantity"
-                    >
-                      +
-                    </button>
-                  </div>
                 </div>
               ))}
-              <div className="total-pricce">
-                Valor total de compra: R$
-                {totalPrice}
-              </div>
             </div>
           )}
       </div>

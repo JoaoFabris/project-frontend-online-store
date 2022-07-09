@@ -36,7 +36,7 @@ class Details extends React.Component {
             </div>
             <button
               type="button"
-              onClick={ (e) => addProductsCart(e, productItens) }
+              onClick={ () => addProductsCart(productItens) }
               data-testid="product-detail-add-to-cart"
             >
               Adicionar ao carrinho
